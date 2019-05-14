@@ -8,7 +8,7 @@ def evaluacionNotacionPosfija(lista, pila):
             else:
                 der = pila.desapilar()
                 izq = pila.desapilar()
-                pila.append(Nodo(lista[0],izq,der))
+                pila.apilar(Nodo(lista[0],izq,der))
             return evaluacionNotacionPosfija(lista[1:], pila)
         
 
