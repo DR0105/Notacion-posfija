@@ -1,35 +1,36 @@
-def evaluacionNotacionPosfija(expresionPosfija):
-    operandos = []
-    listaSimbolos = expresionPosfija.split()
+from pila import *
+from arbol import *
+def evaluacionNotacionPosfija(lista, pila):
+    if lista!=[]
+        print lista
+        if lista[0]!="*" or lista[0]!="/" or lista[0]!="+" or lista[0]!="-":
+            pila.apilar(Nodo(lista[0]))
+            else:
+                der = pila.desapilar()
+                izq = pila.desapilar()
+                pila.append(Nodo(lista[0],izq,der))
+            return evaluacionNotacionPosfija(lista[1:], pila)
+        
 
-    for simbolo in listaSimbolos:
-        if simbolo in "0123456789":
-            operandos.append(int(simbolo))
-        else:
-            operando2 = operandos.pop()
-            operando1 = operandos.pop()
-            resultado = hacerAritmetica(simbolo,operando1,operando2)
-            operandos.append(resultado)
-    return operandos.pop()
-
-def hacerAritmetica(operador, operandoIzq, operandoDer):
-    if operador == "*":
-        return operandoIzq * operandoDer
+def hacerAritmetica(arbol):
+    if arbol.valor == "*":
+        return hacerAritmetica(arbol.izq) * hacerAritmetica(arbol.der)
     elif operador == "/":
-        return operandoIzq / operandoDer
+        return hacerAritmetica(arbol.izq) / hacerAritmetica(arbol.der)
     elif operador == "+":
-        return operandoIzq + operandoDer
-    else:
-        return operandoIzq - operandoDer
-    
+        return hacerAritmetica(arbol.izq) + hacerAritmetica(arbol.der)
+    elif operador == "-":
+        return hacerAritmetica(arbol.izq) - hacerAritmetica(arbol.der)
+        
 f= open ('operaciones.txt','r')
 o=f.read()
 f.close()
 oper=o.splitlines()
+pilaprueba = Pila()
 i=0
 while i<len(oper):
    print(oper[i]),
    print "= ",
-   print(evaluacionNotacionPosfija(oper[i]))
+   print(evaluacionNotacionPosfija(oper[i]), pilaprueba)
    i=i+1
  
